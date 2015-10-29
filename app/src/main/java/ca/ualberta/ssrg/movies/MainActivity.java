@@ -9,17 +9,19 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import ca.ualberta.ssrg.androidelasticsearch.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity{
 
 	private ListView movieList;
 	private Movies movies;
 	private ArrayAdapter<Movie> moviesViewAdapter;
 	private ESMovieManager movieManager;
 	private MoviesController moviesController;
+	private EditText stringSearch;
 
 	private Context mContext = this;
 
@@ -70,13 +72,35 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		
-		SearchThread thread = new SearchThread("*");
+		/**
+		stringSearch = (EditText) findViewById(R.id.editText1);
+		String stringQuery  = stringSearch.getText().toString();
+
+		// you cannot access the network from the gui thread
+		// so let's create another thread to do that wrork
+		// if we try to use the gui thread -- gui will stop and wait.
+thread("*"+ text)
+		SearchThread thread = new SearchThread("" +
+				"curl -XPOST \"http://cmput301.softwareprocess.es:8080/testing/movie/_search\" " +
+				"-d '" +
+				"\t\n" +
+				"{\n" +
+				"  \"query\":{\n" +
+				"  \"query_string\":{\n" +
+				"   \"" +
+				stringQuery +
+				",\n" +
+				"  \"fields\": [\"title\"]\n" +
+				"  }\n" +
+				"}\n" +
+				"}'\n");
 
 		thread.start();
-
-
+**/
+		/**
+		SearchThread thread = new SearchThread("*");
+		thrad.start();
+		 **/	
 	}
 	
 	/** 
@@ -99,9 +123,13 @@ public class MainActivity extends Activity {
 	 */
 	public void search(View view) {
 		movies.clear();
+		stringSearch = (EditText) findViewById(R.id.editText1);
+		String queryString =stringSearch.getText().toString();
 
+		SearchThread thread = new SearchThread(queryString);
+		thread.start();
 		// TODO: Extract search query from text view
-		
+
 		// TODO: Run the search thread
 		
 	}
@@ -125,6 +153,7 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(mContext, AddActivity.class);
 		startActivity(intent);
 	}
+
 
 
 	class SearchThread extends Thread {

@@ -35,7 +35,7 @@
                 android:layout_weight=".70" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/searchButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".30"
@@ -51,4 +51,4 @@
             android:text="@string/button_add" />
     </LinearLayout>
 
-</RelativeLayout><!-- From: file:/cshome/joshua2/AndroidElasticSearch/app/src/main/res/layout/activity_main.xml -->
+</RelativeLayout><!-- From: file:/cshome/qyu4/Desktop/es/AndroidElasticSearch/app/src/main/res/layout/activity_main.xml -->
